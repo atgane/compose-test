@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  myflask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: myflask
+    ports:
+      - "8080"
+    deploy:
+      replicas: 4
+
+  mynginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    image: mynginx
+    ports:
+      - "80:80"
+    depends_on:
+      - myflask
